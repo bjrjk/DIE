@@ -8,8 +8,10 @@ popd
 pushd fuzz/afl
 make clean
 make CC=clang-6.0
-#pushd llvm_mode
-#make clean
-#make CC=clang-6.0 CXX=g++ 
-#popd
 popd
+
+pushd llvm_mode
+make clean
+make CC=clang-6.0 CXX=g++ LLVM_CONFIG=llvm-config-6.0
+popd
+

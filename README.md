@@ -24,7 +24,7 @@ $ sudo apt install redis-server
 ```
 we choose clang-6.0 to compile afl and browsers smoothly.
 ```
-$ sudo apt-get -y install clang-6.0
+$ sudo apt-get -y install clang-6.0 clang llvm
 ```
 
 ## DIE Setup
