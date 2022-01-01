@@ -32,7 +32,7 @@ if __name__ == "__main__":
                 type_path = full_path + ".t"
 
                 if os.path.isfile(type_path):
-                    print('The type file for %s exists.')
+                    print('The type file for %s exists.' % full_path)
                     continue
 
                 print('Instrumenting: %s' % full_path)
