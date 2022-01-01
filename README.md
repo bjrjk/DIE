@@ -67,6 +67,7 @@ cd fuzz/TS/typer
 python3 typer.py [corpus directory]
 ```
 \*.jsi file will be created if instrumentation works well. 
+
 \*.t file will be created if profiling works well.
 
 ### Server Setup
