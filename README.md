@@ -22,7 +22,7 @@ For redis-server,
 ```
 $ sudo apt install redis-server
 ```
-we choose clang-6.0 to compile afl and browsers smoothly.
+we choose clang-6.0 to compile afl, afl-fast & JS Engines smoothly.
 ```
 $ sudo apt-get -y install clang-6.0 clang llvm
 ```
@@ -31,14 +31,30 @@ $ sudo apt-get -y install clang-6.0 clang llvm
 
 To setup environment for AFL,
 ```
-$ cd fuzz/scripts
-$ sudo ./prepare.sh
+$ sudo ./fuzz/scripts/prepare.sh
 ```
 
 To compile whole project,
 ```
-$ ./compile.sh
+$ ./fuzz/scripts/compile.sh
 ```
+
+Set the CPU Usage Count,
+```
+$ nano ./fuzz/scripts/config.py
+```
+
+### Typer
+
+We used d8 to profile type information. So, please change 
+d8_path in fuzz/TS/typer/typer.py before execution.
+
+```
+cd fuzz/TS/typer
+python3 typer.py [corpus directory]
+```
+\*.jsi file will be created if instrumentation works well. 
+\*.t file will be created if profiling works well.
 
 ### Server Setup
 * Make Corpus Directory
@@ -86,18 +102,6 @@ $ ./fuzz/scripts/run.sh ~/ch ./DIE-corpus ch
 $ tmux ls
 ```
 You can find a session named `fuzzer` if it's running.
-
-### Typer
-
-We used d8 to profile type information. So, please change 
-d8_path in fuzz/TS/typer/typer.py before execution.
-
-```
-cd fuzz/TS/typer
-python3 typer.py [corpus directory]
-```
-*.jsi file will be created if instrumentation works well. 
-*.t file will be created if profiling works well.
 
 ## CVEs
 If you find bugs and get CVEs by running DIE, please let us know.

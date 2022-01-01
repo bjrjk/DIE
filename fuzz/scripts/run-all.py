@@ -2,6 +2,7 @@
 import argparse
 import os
 import multiprocessing
+import config
 from os import environ
 
 environ["REDIS_URL"] = "redis://localhost:9000"
@@ -10,7 +11,7 @@ environ["REDIS_URL"] = "redis://localhost:9000"
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('cmd', nargs='+')
-    p.add_argument('--cpu', nargs='?', type=int, default=int(multiprocessing.cpu_count() - 4))
+    p.add_argument('--cpu', nargs='?', type=int, default=int(config.CPU_COUNT))
     cmd = p.parse_args().cmd
     assert('output' in cmd)
     for i in range(p.parse_args().cpu):
