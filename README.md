@@ -22,9 +22,10 @@ For redis-server,
 ```
 $ sudo apt install redis-server
 ```
-we choose clang-6.0 to compile afl, afl-fast & JS Engines smoothly.
+
+To compile afl, afl-fast & JS Engines smoothly,
 ```
-$ sudo apt-get -y install clang-6.0 clang llvm
+$ sudo apt-get -y install clang-6.0 clang llvm ninja-build build-essential cmake
 ```
 
 ## DIE Setup
@@ -39,7 +40,7 @@ To compile whole project,
 $ ./fuzz/scripts/compile.sh
 ```
 
-Set the CPU Usage Count,
+To set the CPU core count(default max),
 ```
 $ nano ./fuzz/scripts/config.py
 ```
