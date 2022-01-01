@@ -25,7 +25,7 @@ $ sudo apt install redis-server
 
 To compile afl, afl-fast & JS Engines smoothly,
 ```
-$ sudo apt-get -y install clang-6.0 clang llvm ninja-build build-essential cmake
+$ sudo apt-get -y install clang-6.0 clang llvm build-essential cmake
 ```
 
 ## DIE Setup
@@ -45,7 +45,19 @@ To set the CPU core count(default max),
 $ nano ./fuzz/scripts/config.py
 ```
 
+
 ### Typer
+To install d8,
+
+```
+pushd engines/utils
+sh fetch_depot_tools.sh
+popd
+
+pushd engines
+./download-engine.sh v8 latest
+./build-v8.sh latest
+```
 
 We used d8 to profile type information. So, please change 
 d8_path in fuzz/TS/typer/typer.py before execution.
