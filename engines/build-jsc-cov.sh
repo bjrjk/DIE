@@ -9,4 +9,6 @@ if [ -z $1 ] ; then
 fi
 pushd webkit-$1
 
+Tools/gtk/install-dependencies
+
 ./Tools/Scripts/build-jsc --jsc-only --debug --cmakeargs="-DENABLE_STATIC_JSC=ON"

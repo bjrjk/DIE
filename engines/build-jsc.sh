@@ -14,6 +14,8 @@ if [ -z $1 ] ; then
 fi
 pushd webkit-$1
 
+Tools/gtk/install-dependencies
+
 # debug mode
 #CFLAGS=-g ./Tools/Scripts/build-jsc --jsc-only --makeargs="-j$(nproc)" --debug --system-malloc --cmakeargs=-DCMAKE_CXX_FLAGS="-fsanitize=address -fno-omit-frame-pointer -g"
 CFLAGS=-g ./Tools/Scripts/build-jsc --jsc-only --makeargs="-j$(nproc)" --debug --system-malloc --cmakeargs=-DCMAKE_CXX_FLAGS="-g"
