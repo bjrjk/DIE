@@ -3,3 +3,4 @@ old_result/
 crash/
 abort/
 illegal/
+check_crash.db.json
