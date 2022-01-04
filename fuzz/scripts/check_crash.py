@@ -66,7 +66,7 @@ def engine_executor(engine_type, engine_path, js_path):
     else:
         logging.fatal("JS Engine unimplemented.")
         sys.exit(102)
-    command = f"timeout {config.JS_SCRIPT_TIMEOUT} {engine_path} {engine_options} {js_path} < /dev/zero > /dev/null 2>&1"
+    command = f"timeout --preserve-status {config.JS_SCRIPT_TIMEOUT} {engine_path} {engine_options} {js_path} < /dev/zero > /dev/null 2>&1"
     logging.info(f"Executing: {command}")
     ret_code = os.system(command)
     logging.info(f"Return Code: {ret_code}")
