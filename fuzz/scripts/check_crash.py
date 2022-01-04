@@ -4,6 +4,8 @@ import os, sys, logging, glob, json, shutil
 from functools import reduce
 import config
 
+SIGTERM_SIGNAL = False
+
 class JsonModifier:
     def __init__(self, json_path: str):
         self._json_path = json_path
@@ -24,6 +26,10 @@ class JsonModifier:
         with open(self._json_path, 'w') as f:
             json.dump(obj, f)
 
+
+def SIGTERM_HANDLER(signum, frame):
+    logging.info("Program received SIGTERM!")
+    SIGTERM_SIGNAL = True
 
 def init(json_modifier: JsonModifier):
     logging.info("Crash Check Script By Jack Ren.")
@@ -70,7 +76,8 @@ def worker(crash_list: list, finished_crash_result: dict):
         if ret_code == 139:
             logging.critical(f"SIGSEGV Detected: {cur_crash_path}")
         finished_crash_result[cur_crash_path] = {'retcode': ret_code}
-
+        if SIGTERM_SIGNAL:
+            return
 
 def main():
     json_modifier = JsonModifier(config.CHECK_CRASH_DB_PATH)
