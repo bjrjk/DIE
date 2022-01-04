@@ -1,48 +1,40 @@
 # DIE
 
-Repository for "Fuzzing JavaScript Engines with Aspect-preserving Mutation" (in S&P'20). You can check the [paper](https://gts3.org/assets/papers/2020/park:die.pdf) for technical details. 
-
-
-## Environment
-
-Tested on Ubuntu 18.04 with following environment.
-* Python v3.6.10
-* npm v6.14.6
-* n v6.7.0
+Repository for "Fuzzing JavaScript Engines with Aspect-preserving Mutation" (in S&P'20).
 
 ## General Setup
 
 For nodejs and npm,
 ```
-$ sudo apt-get -y install npm
+$ sudo apt -y install npm
 $ sudo npm install -g n
 $ sudo n stable
 ```
-For redis-server,
+For redis,
 ```
 $ sudo apt install redis-server
 ```
 
 To compile afl, afl-fast & JS Engines smoothly,
 ```
-$ sudo apt-get -y install clang-6.0 clang llvm build-essential cmake
+$ sudo apt -y install build-essential cmake clang clang-6.0 llvm 
 ```
 
 ## DIE Setup
 
 To setup environment for AFL,
 ```
-$ sudo ./fuzz/scripts/prepare.sh
+$ sudo sh fuzz/scripts/prepare.sh
 ```
 
 To compile whole project,
 ```
-$ ./fuzz/scripts/compile.sh
+$ sh fuzz/scripts/compile.sh
 ```
 
-To set the CPU core count(default max),
+To set the configurations,
 ```
-$ nano ./fuzz/scripts/config.py
+$ nano fuzz/scripts/config.py
 ```
 
 
@@ -124,6 +116,10 @@ If you find bugs and get CVEs by running DIE, please let us know.
 * JavaScriptCore: CVE-2019-8676, CVE-2019-8673, CVE-2019-8811, CVE-2019-8816
 * V8: CVE-2019-13730, CVE-2019-13764, CVE-2020-6382
 
+# Paper: Fuzzing JavaScript Engines with Aspect-preserving Mutation
+
+You can check the [paper](https://gts3.org/assets/papers/2020/park:die.pdf) for technical details.
+
 ## Contacts
 
 * Soyeon Park <soyeon@gatech.edu>
@@ -132,7 +128,7 @@ If you find bugs and get CVEs by running DIE, please let us know.
 * Daehee Jang <daehee87@gatech.edu>
 * Taesoo Kim <taesoo@gatech.edu>
 
-## Citation
+## Paper Citation
 
 ```
 @inproceedings{park:die,
