@@ -51,6 +51,7 @@ def init(json_modifier: JsonModifier):
         if crash_list.count(crash_path):
             crash_list.remove(crash_path)
 
+    logging.debug(f"Deduplicated Crash List Size: {len(crash_list)}")
     return crash_list, finished_crash_result
 
 def engine_executor(engine_type, engine_path, js_path):
@@ -65,7 +66,7 @@ def engine_executor(engine_type, engine_path, js_path):
     else:
         logging.fatal("JS Engine unimplemented.")
         sys.exit(102)
-    command = f"{engine_path} {engine_options} {js_path}"
+    command = f"timeout {config.JS_SCRIPT_TIMEOUT} {engine_path} {engine_options} {js_path} < /dev/zero > /dev/null 2>&1"
     logging.info(f"Executing: {command}")
     ret_code = os.system(command)
     logging.info(f"Return Code: {ret_code}")

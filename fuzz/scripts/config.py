@@ -13,6 +13,7 @@ DIE_CORPUS_ROOT = os.path.join(DIE_ROOT, 'DIE-corpus')
 CPU_COUNT = multiprocessing.cpu_count()
 JS_ENGINE_TYPE = "ch" # Available: ch
 JS_ENGINE_PATH = os.path.join(DIE_ROOT, 'engines/chakracore-1.11.24/out/Release/ch')
+JS_SCRIPT_TIMEOUT = "30s"
 
 # Initialization
 logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
