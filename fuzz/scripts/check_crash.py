@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # encoding = utf-8
 import os, sys, logging, glob, json, shutil
+from functools import reduce
 import config
 
 class JsonModifier:
-    def __init__(self, json_path):
+    def __init__(self, json_path: str):
         self._json_path = json_path
 
     def read(self):
@@ -15,7 +16,7 @@ class JsonModifier:
             return {}
         except json.JSONDecodeError as e:
             logging.fatal("The Check-Crash Database is corrupted, Please check!")
-            sys.exit(1)
+            sys.exit(101)
 
     def write(self, obj):
         if os.path.exists(self._json_path):
@@ -44,12 +45,38 @@ def init(json_modifier: JsonModifier):
 
     return crash_list, finished_crash_result
 
+def engine_executor(engine_type, engine_path, js_path):
+    ret_code = -1
+    if engine_type == 'ch':
+        engine_options = reduce(
+            lambda x, y: f'{x} {y}', map(
+                lambda x: f'-lib={os.path.join(config.DIE_CORPUS_ROOT, x)}',
+                config.JS_DEPENDENCY_LIBS
+            )
+        )
+    else:
+        logging.fatal("JS Engine unimplemented.")
+        sys.exit(102)
+    command = f"{engine_path} {engine_options} {js_path}"
+    logging.info(f"Executing: {command}")
+    ret_code = os.system(command)
+    logging.info(f"Return Code: {ret_code}")
+    return ret_code
+
+def worker(crash_list: list, finished_crash_result: dict):
+    while len(crash_list) > 0:
+        cur_crash_path = crash_list.pop()
+        ret_code = engine_executor(config.JS_ENGINE_TYPE, config.JS_ENGINE_PATH, cur_crash_path)
+        if ret_code == 139:
+            logging.critical(f"SIGSEGV Detected: {cur_crash_path}")
+        finished_crash_result[cur_crash_path] = {'retcode': ret_code}
+
+
 def main():
     json_modifier = JsonModifier(config.CHECK_CRASH_DB_PATH)
     crash_list, finished_crash_result = init(json_modifier)
     try:
-        while True:
-            pass
+        worker(crash_list, finished_crash_result)
     finally:
         json_modifier.write(finished_crash_result)
         logging.info("Program exited!")
