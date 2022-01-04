@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # encoding = utf-8
-import os, sys, logging, glob, json, shutil
+import os, sys, logging, glob, json, shutil, signal
 from functools import reduce
 import config
 
@@ -32,6 +32,8 @@ def SIGTERM_HANDLER(signum, frame):
     SIGTERM_SIGNAL = True
 
 def init(json_modifier: JsonModifier):
+    signal.signal(signal.SIGTERM, SIGTERM_HANDLER)
+
     logging.info("Crash Check Script By Jack Ren.")
     logging.debug(f"DIE_ROOT: {config.DIE_ROOT}")
 
