@@ -2,30 +2,10 @@
 # encoding = utf-8
 import os, sys, logging, glob, json, shutil, signal
 from functools import reduce
+from lib import JsonModifier
 import config
 
 SIGTERM_SIGNAL = False
-
-class JsonModifier:
-    def __init__(self, json_path: str):
-        self._json_path = json_path
-
-    def read(self):
-        try:
-            with open(self._json_path, 'r') as f:
-                return json.load(f)
-        except FileNotFoundError as e:
-            return {}
-        except json.JSONDecodeError as e:
-            logging.fatal("The Check-Crash Database is corrupted, Please check!")
-            sys.exit(101)
-
-    def write(self, obj):
-        if os.path.exists(self._json_path):
-            shutil.move(self._json_path, self._json_path + ".bak")
-        with open(self._json_path, 'w') as f:
-            json.dump(obj, f)
-
 
 def SIGTERM_HANDLER(signum, frame):
     logging.info("Program received SIGTERM!")

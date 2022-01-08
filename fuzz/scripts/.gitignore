@@ -4,3 +4,4 @@ crash/
 abort/
 illegal/
 check_crash.db.json
+config.json

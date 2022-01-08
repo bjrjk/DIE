@@ -1,0 +1,4 @@
+{
+  "JS_ENGINE_TYPE": "ch",
+  "JS_ENGINE_RELATIVE_PATH": "engines/chakracore-1.11.24/out/Release/ch"
+}
