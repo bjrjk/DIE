@@ -43,6 +43,13 @@ def engine_executor(engine_type, engine_path, js_path):
                 config.JS_DEPENDENCY_LIBS
             )
         )
+    elif engine_type == 'jsc':
+        engine_options = reduce(
+            lambda x, y: f'{x} {y}', map(
+                lambda x: f'{os.path.join(config.DIE_CORPUS_ROOT, x)}',
+                config.JS_DEPENDENCY_LIBS
+            )
+        )
     else:
         logging.fatal("JS Engine unimplemented.")
         sys.exit(102)

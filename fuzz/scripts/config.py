@@ -22,6 +22,6 @@ if os.path.exists(CONFIG_JSON_PATH):
 CPU_COUNT = multiprocessing.cpu_count()
 _json_modifier = JsonModifier(CONFIG_PATH)
 _user_config = _json_modifier.read()
-JS_ENGINE_TYPE = _user_config['JS_ENGINE_TYPE'] # Available: ch
+JS_ENGINE_TYPE = _user_config['JS_ENGINE_TYPE'] # Available: ch, jsc
 JS_ENGINE_PATH = os.path.join(DIE_ROOT, _user_config['JS_ENGINE_RELATIVE_PATH'])
 JS_SCRIPT_TIMEOUT = "30s"
